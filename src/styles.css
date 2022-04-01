@@ -2,3 +2,7 @@
 body {
   overflow-x: hidden;
 }
+
+.small-flag {
+  width: 33px;
+}
