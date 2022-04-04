@@ -1,2 +1,18 @@
-<h2>Por Cápital</h2>
+<h2>Por Capital</h2>
 <hr />
+<div class="row">
+  <div class="col">
+    <app-country-search-input
+      (onResult)="searchCapitals($event)"
+      placeholder="Buscar capital..."
+    ></app-country-search-input>
+  </div>
+</div>
+
+<div *ngIf="hasError" class="alert alert-danger">No se encontró ninguna coincidencia con: {{ toSearch }}</div>
+
+<div *ngIf="capitals.length != 0" class="row">
+  <div class="col">
+    <app-countries-table [countries]="capitals"></app-countries-table>
+  </div>
+</div>

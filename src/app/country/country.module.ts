@@ -7,6 +7,8 @@ import { ByCapitalComponent } from './pages/by-capital/by-capital.component';
 import { ByCountryComponent } from './pages/by-country/by-country.component';
 import { ByRegionComponent } from './pages/by-region/by-region.component';
 import { CountryInfoComponent } from './pages/country-info/country-info.component';
+import { CountriesTableComponent } from './components/countries-table/countries-table.component';
+import { CountrySearchInputComponent } from './components/country-search-input/country-search-input.component';
 
 @NgModule({
   declarations: [
@@ -14,12 +16,15 @@ import { CountryInfoComponent } from './pages/country-info/country-info.componen
     ByCountryComponent,
     ByRegionComponent,
     CountryInfoComponent,
+    CountriesTableComponent,
+    CountrySearchInputComponent,
   ],
   exports: [
     ByCapitalComponent, //
     ByCountryComponent,
     ByRegionComponent,
     CountryInfoComponent,
+    CountriesTableComponent,
   ],
   imports: [
     CommonModule, //

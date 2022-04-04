@@ -11,9 +11,21 @@ export class CountryService {
 
   constructor(private http: HttpClient) {}
 
-  searchCountry(toSearch: string): Observable<Country[]> {
+  searchCountries(toSearch: string): Observable<Country[]> {
     const url = `${this._urlBase}/name/${toSearch}`;
 
     return this.http.get<Country[]>(url);
+  }
+
+  searchCapital(toSearch: string): Observable<Country[]> {
+    const url = `${this._urlBase}/capital/${toSearch}`;
+
+    return this.http.get<Country[]>(url);
+  }
+
+  getCountry(code: string): Observable<Country> {
+    const url = `${this._urlBase}/alpha/${code}`;
+
+    return this.http.get<Country>(url);
   }
 }

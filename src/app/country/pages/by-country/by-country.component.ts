@@ -14,15 +14,13 @@ export class ByCountryComponent {
 
   constructor(private countryService: CountryService) {}
 
-  searchCountry() {
+  searchCountries(toSearch: string) {
     this.hasError = false;
+    this.toSearch = toSearch;
 
-    console.log(this.toSearch);
-
-    this.countryService.searchCountry(this.toSearch).subscribe({
+    this.countryService.searchCountries(this.toSearch).subscribe({
       next: (countries) => {
         this.countries = countries;
-        console.log(countries);
       },
       error: (err: any) => {
         this.hasError = true;
@@ -32,7 +30,8 @@ export class ByCountryComponent {
     });
   }
 
-  toSearchChange() {
-    this.countries = [];
+  suggestions(toSearch: string) {
+    this.hasError = false;
+    //TODO: set suggestions
   }
 }

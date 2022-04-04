@@ -1,0 +1,11 @@
+<form (submit)="searchCountries()" autocomplete="off">
+  <!-- (keyup)="toSearchChange()" -->
+  <input
+    type="text"
+    name="toSearch"
+    [(ngModel)]="toSearch"
+    (input)="keyPressed()"
+    class="form-control"
+    [placeholder]="placeholder"
+  />
+</form>
