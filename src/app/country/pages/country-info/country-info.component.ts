@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Country } from '../../interfaces/country.interface';
 import { CountryService } from '../../services/country.service';
-import { switchMap, tap } from 'rxjs';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-country-info',
@@ -23,12 +23,20 @@ export class CountryInfoComponent implements OnInit {
 
     this.activatedRoute.params
       .pipe(
-        switchMap(({ id }) => this.countryService.getCountry(id)),
-        tap(console.log)
+        switchMap(({ id }) => this.countryService.getCountry(id))
+        /* ,tap(console.log) */
       )
-      .subscribe((country) => {
-        this.country = country;
-        this.loading = false;
+      .subscribe({
+        next: (country) => {
+          console.log(country);
+          this.country = country;
+          this.loading = false;
+        },
+        error: () => {
+          this.loading = false;
+          //this.country = null;
+          console.log('error');
+        },
       });
   }
 }

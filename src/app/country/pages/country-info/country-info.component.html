@@ -1,52 +1,160 @@
 <!-- <div *ngIf="!country; else countryContainer" class="alert alert-info">Espere por favor...</div> -->
 
-<div *ngIf="!country; else countryContainer" class="w-100 h-100 d-flex align-items-center justify-content-center">
+<div
+  *ngIf="country == undefined; else countryContainer"
+  class="w-100 h-100 d-flex align-items-center justify-content-center"
+>
   <div class="spinner-border text-primary" role="status">
     <span class="visually-hidden">Loading...</span>
   </div>
 </div>
 
+<ng-template #noCapital>
+  <span class="fw-bold"> No posee Capital</span>
+</ng-template>
+
 <ng-template #countryContainer>
   <div class="row">
-    <div class="col-12 align-items-end">
-      <div class="card mb-3">
-        <div class="card-header">{{ country.name }}</div>
-        <div class="row g-0">
-          <div class="col-md-3">
-            <img src="{{ country.flag }}" class="img-fluid rounded-start" alt="..." />
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h6 class="card-title">Cápital: {{ country.capital }}</h6>
-              <ol class="list-group list-group-numbered">
-                <li class="list-group-item d-flex justify-content-between align-items-start">
-                  <div class="ms-2 me-auto">
-                    <div class="fw-bold">Subheading</div>
-                    Cras justo odio
-                  </div>
-                  <span class="badge bg-primary rounded-pill">14</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-start">
-                  <div class="ms-2 me-auto">
-                    <div class="fw-bold">Subheading</div>
-                    Cras justo odio
-                  </div>
-                  <span class="badge bg-primary rounded-pill">14</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-start">
-                  <div class="ms-2 me-auto">
-                    <div class="fw-bold">Subheading</div>
-                    Cras justo odio
-                  </div>
-                  <span class="badge bg-primary rounded-pill">14</span>
-                </li>
-              </ol>
-              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    <div class="col-3">
+      <img class="img-thumbnail" [src]="country?.flag" alt="" />
+      <div>Traducciones:</div>
+      <ol class="list-group list-group-flush">
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+          <div>
+            <div *ngFor="let item of country.translations | keyvalue" class="d-flex flex-row text-dark">
+              <div style="width: 30px; margin-right: 8px; margin-bottom: 8px" class="badge bg-primary">
+                {{ item.key }}:
+              </div>
+              <div>{{ item.value }}</div>
             </div>
+          </div>
+        </li>
+      </ol>
+    </div>
+    <div class="card mb-3 col-9">
+      <div class="card-header text-center text-white bg-primary fw-bold"><h3>Información</h3></div>
+      <div class="row g-0">
+        <div class="col-md-12">
+          <div class="card-body">
+            <ol class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <span>País: </span>
+                  <span *ngIf="country?.capital; else noCapital" class="fw-bold"> {{ country?.name }}</span>
+                  <!-- <div>carefsdfghjk</div> -->
+                </div>
+              </li>
+              <!-- <li class="list-group-item d-flex justify-content-between align-items-start">
+                  <div class="ms-2 me-auto d-flex justify-content-between w-100">
+                    <div class="d-flex align-items-center">Bandera:</div>
+                    <div><img class="img-img-thumbnail" style="width: 100px" [src]="country?.flag" alt="..." /></div>
+                  </div>
+                </li> -->
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <span>Cápital: </span>
+                  <span *ngIf="country?.capital; else noCapital" class="fw-bold"> {{ country?.capital }}</span>
+                  <!-- <div>carefsdfghjk</div> -->
+                </div>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <span>Códigos: </span>
+                  <span class="badge bg-primary text-white me-1"> {{ country?.alpha2Code }} </span>
+                  <span class="badge bg-primary text-white"> {{ country?.alpha3Code }}</span>
+                  <!-- <div>carefsdfghjk</div> -->
+                </div>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <span>Población: </span>
+                  <span class="fw-bold"> {{ country?.population | number: '1.0-0' }} hab.</span>
+                  <!-- <div>carefsdfghjk</div> -->
+                </div>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <span>Area: </span>
+                  <span class="fw-bold"> {{ country?.area | number }} km<sup>2</sup></span>
+                  <!-- <div>carefsdfghjk</div> -->
+                </div>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <span>Región: </span>
+                  <span class="fw-bold"> {{ country?.region }}</span>
+                  <!-- <div>carefsdfghjk</div> -->
+                </div>
+                <!-- <span class="badge bg-primary rounded-pill">14</span> -->
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <span>sub-Region: </span>
+                  <span class="fw-bold"> {{ country?.subregion }}</span>
+                  <!-- <div>carefsdfghjk</div> -->
+                </div>
+                <!-- <span class="badge bg-primary rounded-pill">14</span> -->
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <span>Idiomas: </span>
+                  <span
+                    class="badge bg-white border border-primary text-primary me-1"
+                    *ngFor="let item of country.languages"
+                    >{{ item.name }}</span
+                  >
+                </div>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <span>Fronteras: </span>
+                  <span
+                    *ngFor="let item of country.borders"
+                    class="badge rounded-pill bg-white text-primary border border-primary me-1"
+                  >
+                    {{ item }}</span
+                  >
+                  <!-- <div>carefsdfghjk</div> -->
+                </div>
+                <!-- <span class="badge bg-primary rounded-pill">14</span> -->
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <span>Monedas: </span>
+                  <span *ngFor="let item of country.currencies" class="badge bg-primary text-white me-1">
+                    {{ item.name }}: {{ item.code }} - {{ item.symbol }}
+                  </span>
+                  <!-- <div>carefsdfghjk</div> -->
+                </div>
+                <!-- <span class="badge bg-primary rounded-pill">14</span> -->
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <span>Bloques Regionales: </span>
+                  <span
+                    class="badge bg-white border border-primary text-primary me-1"
+                    *ngFor="let item of country.regionalBlocs"
+                    >{{ item.name }}</span
+                  >
+                </div>
+              </li>
+            </ol>
+            <p class="card-text d-flex justify-content-center">
+              <small class="text-muted">
+                <span>Uso Horario: </span>
+                <span class="badge bg-primary me-1" *ngFor="let utc of country?.timezones; let i = index">
+                  {{ utc }}
+                </span>
+              </small>
+            </p>
           </div>
         </div>
       </div>
     </div>
-    <button class="btn btn-primary" [routerLink]="['/']">Regresar</button>
+  </div>
+  <div class="row">
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-primary" [routerLink]="['/']">Regresar</button>
+    </div>
   </div>
 </ng-template>

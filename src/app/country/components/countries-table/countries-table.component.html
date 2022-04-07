@@ -19,7 +19,7 @@
       <td *ngIf="!country.capital">{{ country.name }}</td>
       <td>{{ country.population | number }}</td>
       <td>
-        <a [routerLink]="['/country', country.alpha2Code]">Ver...</a>
+        <a class="btn btn-outline-primary" [routerLink]="['/country', country.alpha2Code]">Ver...</a>
       </td>
     </tr>
   </tbody>

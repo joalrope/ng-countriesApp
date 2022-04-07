@@ -5,12 +5,15 @@
     <app-country-search-input
       (onResult)="searchCountries($event)"
       (onDebounce)="suggestions($event)"
+      (onClear)="clearCountries()"
+      [toSearch]="toSearch"
       placeholder="Buscar País..."
     ></app-country-search-input>
   </div>
 </div>
 
 <div *ngIf="hasError" class="alert alert-danger">No se encontró ninguna coincidencia con: {{ toSearch }}</div>
+<div *ngIf="!hasInternet" class="alert alert-danger">Parece que no tienes coneccion a Internet</div>
 
 <div *ngIf="countries.length != 0" class="row">
   <div class="col">
